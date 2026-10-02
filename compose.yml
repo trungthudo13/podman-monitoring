@@ -48,8 +48,11 @@ services:
     image: quay.io/navidys/prometheus-podman-exporter:latest
     container_name: monitor-podman-exporter
     restart: unless-stopped
+    userns_mode: keep-id
     environment:
       CONTAINER_HOST: unix:///run/podman/podman.sock
+      HOME: /tmp
+      XDG_CONFIG_HOME: /tmp/.config
     volumes:
       - ${XDG_RUNTIME_DIR}/podman/podman.sock:/run/podman/podman.sock:ro
     security_opt:
