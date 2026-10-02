@@ -22,7 +22,8 @@ services:
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
       - "--storage.tsdb.path=/prometheus"
-      - "--storage.tsdb.retention.time=7d"
+      - "--storage.tsdb.retention.time=30d"
+      - "--storage.tsdb.retention.size=20GB"
       - "--web.enable-lifecycle"
     ports:
       - "9090:9090"
@@ -93,7 +94,8 @@ services:
 
 networks:
   monitoring:
-    driver: bridge
+    external: true
+    name: podman-monitoring
 
 volumes:
   grafana-data:
